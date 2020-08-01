@@ -1,0 +1,75 @@
+﻿<div style="font-family:Arial">
+
+<script src="~/Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+@*<script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>*@
+<script type="text/javascript" lang="javascript">
+function ClearResults() 
+{
+    $("#divStudents").empty();
+}
+
+function Validate() {
+    if (1==2) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+function CountRows() {
+    alert(($("#tableStudents tr").length - 1) + 'rows retrieved');
+}
+    </script>
+<h2>Students</h2>
+<div id="divloading" style="display:none;">
+   <img src="~/Images/spinner.gif"/>
+</div>
+@Ajax.ActionLink("All", "All", 
+    new AjaxOptions 
+    {
+      HttpMethod = "GET", // HttpMethod to use, GET or POST
+      UpdateTargetId = "divStudents", // ID of the HTML element to update
+      InsertionMode = InsertionMode.Replace, // Replace the existing contents
+      LoadingElementId = "divloading",
+      OnBegin = "ClearResults" ,
+      //OnSuccess = "CountRows"     ,
+      LoadingElementDuration = 2000
+    })
+
+<span style="color:Blue">|</span>
+
+@Ajax.ActionLink("Top 3", "Top3", 
+    new AjaxOptions 
+    {
+      HttpMethod = "GET", // HttpMethod to use, GET or POST
+      UpdateTargetId = "divStudents", // ID of the HTML element to update
+
+ 
+
+      InsertionMode = InsertionMode.Replace // Replace the existing contents
+      , 
+      LoadingElementId = "divloading",
+      OnBegin = "ClearResults",
+      OnSuccess = "CountRows"
+    })
+
+<span style="color:Blue">|</span>
+
+@Ajax.ActionLink("Bottom 3", "Bottom3", 
+    new AjaxOptions 
+    {
+      HttpMethod = "GET", // HttpMethod to use, GET or POST
+      UpdateTargetId = "divStudents", // ID of the HTML element to update
+      InsertionMode = InsertionMode.Replace // Replace the existing contents
+      , 
+      LoadingElementId = "divloading",
+      OnBegin = "ClearResults",
+      OnSuccess = "CountRows"
+    })
+
+<br /><br />
+<div id="divStudents">
+</div>
+</div>
